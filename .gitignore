@@ -1,0 +1,116 @@
+# Gradle files
+.gradle/
+build/
+out/
+*.iml
+
+# Kotlin specific
+*.class
+*.jar
+*.war
+*.war
+*.db
+*.hprof
+*.log
+*.lock
+*.dSYM
+*.so
+*.dll
+*.exe
+*.o
+*.a
+*.d
+*.h
+*.hpp
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.ipr
+*.iml
+out/
+*.class
+
+# Android Studio
+*.apk
+*.ap_
+*.dex
+*.class
+*.jar
+*.war
+*.hprof
+*.log
+*.lock
+*.dSYM
+*.so
+*.dll
+*.exe
+*.o
+*.a
+*.d
+*.h
+*.hpp
+local.properties
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Gradle Wrapper
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+
+# Kotlin Multiplatform specific
+kotlin/**/build/
+kotlin/**/out/
+kotlin/**/generated/
+kotlin/**/classes/
+kotlin/**/libs/
+kotlin/**/reports/
+kotlin/**/test-results/
+kotlin/**/test-reports/
+
+# Compose Multiplatform specific
+compose/**/build/
+compose/**/out/
+compose/**/generated/
+compose/**/classes/
+compose/**/libs/
+compose/**/reports/
+compose/**/test-results/
+compose/**/test-reports/
+
+# Other IDE specific files
+*.idea/
+*.iml
+*.ipr
+*.iws
+
+# Other files
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*.orig
+*.rej
+*.class
+*.jar
+*.war
+*.ear
+*.db
+*.hprof
+*.lock
+*.dSYM
+*.so
+*.dll
+*.exe
+*.o
+*.a
+*.d
+*.h
+*.hpp
