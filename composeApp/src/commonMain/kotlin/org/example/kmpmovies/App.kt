@@ -50,8 +50,8 @@ fun MovieItem(movie: Movie) {
             contentDescription = movie.title,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                    .fillMaxWidth()
-                .aspectRatio(2/3f)
+                .fillMaxWidth()
+                .aspectRatio(2 / 3f)
                 .clip(MaterialTheme.shapes.small)
         )
         Text(
