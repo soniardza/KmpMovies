@@ -22,6 +22,7 @@ out/
 *.d
 *.h
 *.hpp
+kotlin-compile-*
 
 # IntelliJ IDEA
 .idea/
