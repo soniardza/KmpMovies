@@ -5,8 +5,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.composeMultiplatform)
+    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
@@ -42,6 +42,8 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.runtimeCompose)
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
             implementation(libs.ktor.client.core)
