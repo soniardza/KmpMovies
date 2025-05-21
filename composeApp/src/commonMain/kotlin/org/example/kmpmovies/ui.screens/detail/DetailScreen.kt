@@ -22,21 +22,21 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import kmpmovies.composeapp.generated.resources.Res
 import kmpmovies.composeapp.generated.resources.back
+import org.example.kmpmovies.Movie
 import org.example.kmpmovies.movies
 import org.example.kmpmovies.ui.screens.Screen
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen() {
-    val movie = movies[0]
+fun DetailScreen(movie: Movie, onBack: () -> Unit) {
     Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
                     title = { Text(movie.title) },
                     navigationIcon = {
-                        IconButton(onClick = { /*TODO: Handle back navigation*/ }) {
+                        IconButton(onClick = onBack) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
                                 contentDescription = stringResource(Res.string.back)
