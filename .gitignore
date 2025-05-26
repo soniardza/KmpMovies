@@ -22,7 +22,10 @@ out/
 *.d
 *.h
 *.hpp
+*.klib
 kotlin-compile-*
+.kotlin/sessions/*.salive
+api_key.xml
 
 # IntelliJ IDEA
 .idea/
