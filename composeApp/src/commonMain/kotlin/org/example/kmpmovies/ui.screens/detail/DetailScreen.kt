@@ -22,8 +22,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import kmpmovies.composeapp.generated.resources.Res
 import kmpmovies.composeapp.generated.resources.back
-import org.example.kmpmovies.Movie
-import org.example.kmpmovies.movies
+import org.example.kmpmovies.data.Movie
 import org.example.kmpmovies.ui.screens.Screen
 import org.jetbrains.compose.resources.stringResource
 
