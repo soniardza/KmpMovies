@@ -26,11 +26,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import kmpmovies.composeapp.generated.resources.Res
 import kmpmovies.composeapp.generated.resources.app_name
-import org.example.kmpmovies.Movie
+import org.example.kmpmovies.data.Movie
 import org.example.kmpmovies.ui.screens.Screen
 import org.jetbrains.compose.resources.stringResource
 
@@ -39,7 +38,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun HomeScreen(
     onMovieClick: (Movie) -> Unit,
-    vm: HomeViewModel = viewModel { HomeViewModel() } // esto sirve para no recrear el VM cada que haya recomposiciones o cambios, y reutilizar el que se había creado originalmente
+    vm: HomeViewModel
 ) {
     Screen {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()

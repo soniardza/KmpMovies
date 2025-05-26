@@ -1,24 +1,51 @@
 package org.example.kmpmovies.ui.screens
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import org.example.kmpmovies.movies
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.json
+import kmpmovies.composeapp.generated.resources.Res
+import kmpmovies.composeapp.generated.resources.api_key
+import kotlinx.serialization.json.Json
+import org.example.kmpmovies.data.MoviesService
+import org.example.kmpmovies.data.movies
 import org.example.kmpmovies.ui.screens.detail.DetailScreen
 import org.example.kmpmovies.ui.screens.home.HomeScreen
+import org.example.kmpmovies.ui.screens.home.HomeViewModel
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
+    val client = remember { // Esto no es lo ideal, pero cuando se llegue a la inyeccion de depencias se limpiará
+        HttpClient {
+            install(ContentNegotiation) {
+                json(Json {
+                    ignoreUnknownKeys = true // Es para no recibir una excepcion ya que no se parcea el JSON completo
+                })
+            }
+        }
+    }
+
+    val apiKey = stringResource(Res.string.api_key)
+    val viewModel = viewModel {
+        HomeViewModel(MoviesService(apiKey, client))
+    }
+
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen(
                 onMovieClick = { movie ->
                     navController.navigate("details/${movie.id}")
-                }
+                },
+                vm = viewModel
             )
         }
         composable(

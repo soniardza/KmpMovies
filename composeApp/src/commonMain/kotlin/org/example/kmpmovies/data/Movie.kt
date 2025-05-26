@@ -1,4 +1,4 @@
-package org.example.kmpmovies
+package org.example.kmpmovies.data
 
 data class Movie(
     val id: Int,
