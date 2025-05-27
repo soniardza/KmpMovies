@@ -7,11 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import org.example.kmpmovies.data.Movie
-import org.example.kmpmovies.data.MoviesService
-import org.example.kmpmovies.data.RemoteMovie
+import org.example.kmpmovies.data.MoviesRepository
 
 class HomeViewModel(
-    private val moviesService: MoviesService
+    private val repository: MoviesRepository
 ) : ViewModel() {
     var state by mutableStateOf(UiState())
         private set
@@ -21,9 +20,7 @@ class HomeViewModel(
             state = UiState(loading = true)
             state = UiState(
                 loading = false,
-                movies = moviesService.fetchPopularMovies().results.map {
-                    it.toDomainMovie()
-                }
+                movies = repository.fetchPopularMovies()
             )
         }
     }
@@ -33,9 +30,3 @@ class HomeViewModel(
         val movies: List<Movie> = emptyList()
     )
 }
-
-private fun RemoteMovie.toDomainMovie() = Movie(
-    id = id,
-    title = title,
-    poster = "https://image.tmdb.org/t/p/w500$posterPath"
-)
