@@ -13,9 +13,8 @@ import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
-import kmpmovies.composeapp.generated.resources.Res
-import kmpmovies.composeapp.generated.resources.api_key
 import kotlinx.serialization.json.Json
+import org.example.kmpmovies.BuildConfig
 import org.example.kmpmovies.data.MoviesRepository
 import org.example.kmpmovies.data.MoviesService
 import org.example.kmpmovies.data.database.MoviesDao
@@ -23,7 +22,6 @@ import org.example.kmpmovies.ui.screens.detail.DetailScreen
 import org.example.kmpmovies.ui.screens.detail.DetailViewModel
 import org.example.kmpmovies.ui.screens.home.HomeScreen
 import org.example.kmpmovies.ui.screens.home.HomeViewModel
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun Navigation(moviesDao: MoviesDao) {
@@ -53,10 +51,7 @@ fun Navigation(moviesDao: MoviesDao) {
 }
 
 @Composable
-private fun rememberMoviesRepository(
-    moviesDao: MoviesDao,
-    apiKey: String = stringResource(Res.string.api_key)
-): MoviesRepository = remember {
+private fun rememberMoviesRepository(moviesDao: MoviesDao): MoviesRepository = remember {
     val client = HttpClient {
         install(ContentNegotiation) {
             json(Json {
@@ -68,7 +63,7 @@ private fun rememberMoviesRepository(
             url {
                 protocol = URLProtocol.HTTPS
                 host = "api.themoviedb.org"
-                parameters.append("api_key", apiKey)
+                parameters.append("api_key", BuildConfig.API_KEY)
             }
         }
     }

@@ -1,6 +1,7 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -10,6 +11,7 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidxRoom)
+    alias(libs.plugins.gradleBuildConfig)
 }
 
 kotlin {
@@ -113,4 +115,14 @@ tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach
 
 room {
     schemaDirectory("$projectDir/schemas")
+}
+
+buildConfig {
+    packageName("org.example.kmpmovies")
+
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").reader())
+    val apiKey = properties.getProperty("API_KEY")
+
+    buildConfigField("API_KEY", apiKey)
 }
