@@ -18,6 +18,7 @@ import kmpmovies.composeapp.generated.resources.api_key
 import kotlinx.serialization.json.Json
 import org.example.kmpmovies.data.MoviesRepository
 import org.example.kmpmovies.data.MoviesService
+import org.example.kmpmovies.data.database.MoviesDao
 import org.example.kmpmovies.ui.screens.detail.DetailScreen
 import org.example.kmpmovies.ui.screens.detail.DetailViewModel
 import org.example.kmpmovies.ui.screens.home.HomeScreen
@@ -25,9 +26,9 @@ import org.example.kmpmovies.ui.screens.home.HomeViewModel
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun Navigation() {
+fun Navigation(moviesDao: MoviesDao) {
     val navController = rememberNavController()
-    val repository = rememberMoviesRepository()
+    val repository = rememberMoviesRepository(moviesDao)
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
@@ -53,6 +54,7 @@ fun Navigation() {
 
 @Composable
 private fun rememberMoviesRepository(
+    moviesDao: MoviesDao,
     apiKey: String = stringResource(Res.string.api_key)
 ): MoviesRepository = remember {
     val client = HttpClient {
@@ -70,5 +72,5 @@ private fun rememberMoviesRepository(
             }
         }
     }
-    MoviesRepository(MoviesService(client))
+    MoviesRepository(MoviesService(client), moviesDao)
 }
