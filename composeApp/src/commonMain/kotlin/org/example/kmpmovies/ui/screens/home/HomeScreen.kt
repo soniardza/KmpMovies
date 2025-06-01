@@ -29,12 +29,14 @@ import org.example.kmpmovies.data.Movie
 import org.example.kmpmovies.ui.common.LoadingIndicator
 import org.example.kmpmovies.ui.screens.Screen
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, KoinExperimentalAPI::class)
 @Composable
 fun HomeScreen(
     onMovieClick: (Movie) -> Unit,
-    vm: HomeViewModel
+    vm: HomeViewModel = koinViewModel()
 ) {
     Screen {
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
