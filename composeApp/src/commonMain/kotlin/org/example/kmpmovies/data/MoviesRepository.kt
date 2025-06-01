@@ -3,15 +3,20 @@ package org.example.kmpmovies.data
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 import org.example.kmpmovies.data.database.MoviesDao
+import org.example.kmpmovies.data.remote.MoviesService
+import org.example.kmpmovies.data.remote.RemoteMovie
 
 class MoviesRepository(
     private val moviesService: MoviesService,
-    private val moviesDao: MoviesDao
+    private val moviesDao: MoviesDao,
+    private val regionRepository: RegionRepository
 ) {
     val movies: Flow<List<Movie>> = moviesDao.fetchPopularMovies().onEach { movies ->
         if (movies.isEmpty()) {
             val popularMovies = moviesService
-                .fetchPopularMovies()
+                .fetchPopularMovies(
+                    regionRepository.fetchRegion()
+                )
                 .results.map { it.toDomainMovie() }
             moviesDao.save(popularMovies)
         }
