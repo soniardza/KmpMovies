@@ -11,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import org.example.kmpmovies.data.database.getDatabaseBuilder
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,8 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge() // permite pintar hasta los bordes
         setContent {
             EnableTransparentStatusBar()
-            val db = getDatabaseBuilder(this).build()
-            App(db.moviesDao())
+            App()
         }
     }
 }

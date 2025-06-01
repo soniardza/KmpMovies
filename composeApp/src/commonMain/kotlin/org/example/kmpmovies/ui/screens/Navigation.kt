@@ -1,40 +1,28 @@
 package org.example.kmpmovies.ui.screens
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.DefaultRequest
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.http.URLProtocol
-import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.json.Json
-import org.example.kmpmovies.BuildConfig
-import org.example.kmpmovies.data.MoviesRepository
-import org.example.kmpmovies.data.MoviesService
-import org.example.kmpmovies.data.database.MoviesDao
 import org.example.kmpmovies.ui.screens.detail.DetailScreen
-import org.example.kmpmovies.ui.screens.detail.DetailViewModel
 import org.example.kmpmovies.ui.screens.home.HomeScreen
-import org.example.kmpmovies.ui.screens.home.HomeViewModel
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.core.parameter.parametersOf
 
+@OptIn(KoinExperimentalAPI::class)
 @Composable
-fun Navigation(moviesDao: MoviesDao) {
+fun Navigation() {
     val navController = rememberNavController()
-    val repository = rememberMoviesRepository(moviesDao)
 
     NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen(
                 onMovieClick = { movie ->
                     navController.navigate("details/${movie.id}")
-                },
-                vm = viewModel { HomeViewModel(repository) }
+                }
             )
         }
         composable(
@@ -43,29 +31,9 @@ fun Navigation(moviesDao: MoviesDao) {
         ) { backStackEntry ->
             val movieId = checkNotNull(backStackEntry.arguments?.getInt("movieId"))
             DetailScreen(
-                vm = viewModel { DetailViewModel(movieId,repository) },
+                vm = koinViewModel(parameters = { parametersOf(movieId) }),
                 onBack = { navController.popBackStack() }
             )
         }
     }
-}
-
-@Composable
-private fun rememberMoviesRepository(moviesDao: MoviesDao): MoviesRepository = remember {
-    val client = HttpClient {
-        install(ContentNegotiation) {
-            json(Json {
-                ignoreUnknownKeys =
-                    true // Es para no recibir una excepcion ya que no se parcea el JSON completo
-            })
-        }
-        install(DefaultRequest) {
-            url {
-                protocol = URLProtocol.HTTPS
-                host = "api.themoviedb.org"
-                parameters.append("api_key", BuildConfig.API_KEY)
-            }
-        }
-    }
-    MoviesRepository(MoviesService(client), moviesDao)
 }
