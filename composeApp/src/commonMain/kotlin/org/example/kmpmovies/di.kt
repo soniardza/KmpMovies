@@ -8,7 +8,8 @@ import io.ktor.http.URLProtocol
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.example.kmpmovies.data.MoviesRepository
-import org.example.kmpmovies.data.MoviesService
+import org.example.kmpmovies.data.RegionRepository
+import org.example.kmpmovies.data.remote.MoviesService
 import org.example.kmpmovies.data.database.MoviesDao
 import org.example.kmpmovies.data.database.MoviesDataBase
 import org.example.kmpmovies.ui.screens.detail.DetailViewModel
@@ -31,6 +32,7 @@ val appModule = module {
 
 val dataModule = module {
     factoryOf(::MoviesRepository)
+    factoryOf(::RegionRepository)
     factoryOf(::MoviesService)
     single {
         HttpClient {
