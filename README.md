@@ -15,11 +15,12 @@ This app supports both **Android** and **iOS** platforms, demonstrating how to s
 ### 📁 Code structure
 
 This is a Kotlin Multiplatform project for Android and iOS:
-
+```
 /composeApp -> Shared code for both platforms
 ├── commonMain -> Shared logic across Android and iOS
 └── iosMain, androidMain -> Platform-specific code
 /iosApp -> Entry point for the iOS app (SwiftUI integration possible)
+```
 
 ---
 
@@ -43,7 +44,9 @@ This is a Kotlin Multiplatform project for Android and iOS:
 To run the project, you will need an API key from [TheMovieDb](https://www.themoviedb.org).  
 Create a `local.properties` file in the root of your project and add the following line:
 
+```
 API_KEY=your_api_key_here
+```
 
 Replace `your_api_key_here` with your actual API key.
 
@@ -62,11 +65,12 @@ La aplicación es compatible con plataformas **Android** e **iOS**, demostrando 
 ### 📁 Estructura del código
 
 Este es un proyecto Multiplataforma con Kotlin para Android e iOS:
-
+```
 /composeApp -> Código compartido entre ambas plataformas
 ├── commonMain -> Lógica común para Android e iOS
 └── iosMain, androidMain -> Código específico para cada plataforma
 /iosApp -> Punto de entrada de la app iOS (se puede integrar SwiftUI)
+```
 
 ---
 
@@ -90,6 +94,8 @@ Este es un proyecto Multiplataforma con Kotlin para Android e iOS:
 Para ejecutar el proyecto, necesitas una API key de [TheMovieDb](https://www.themoviedb.org).  
 Crea un archivo `local.properties` en la raíz del proyecto y agrega la siguiente línea:
 
+```
 API_KEY=tu_api_key_aquí
+```
 
 Reemplaza `tu_api_key_aquí` con tu clave real de API.
